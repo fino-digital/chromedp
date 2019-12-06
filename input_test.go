@@ -20,7 +20,7 @@ const inViewportJS = `(function(a) {
 func TestMouseClickXY(t *testing.T) {
 	t.Parallel()
 
-	ctx, cancel := testAllocate(t, "input.html")
+	ctx, cancel := LocalAllocate(t, "input.html")
 	defer cancel()
 
 	if err := Run(ctx, WaitVisible(`#input1`, ByID)); err != nil {
@@ -88,7 +88,7 @@ func TestMouseClickNode(t *testing.T) {
 		t.Run(fmt.Sprintf("%02d", i), func(t *testing.T) {
 			t.Parallel()
 
-			ctx, cancel := testAllocate(t, "input.html")
+			ctx, cancel := LocalAllocate(t, "input.html")
 			defer cancel()
 
 			var nodes []*cdp.Node
@@ -132,7 +132,7 @@ func TestMouseClickOffscreenNode(t *testing.T) {
 		t.Run(fmt.Sprintf("%02d", i), func(t *testing.T) {
 			t.Parallel()
 
-			ctx, cancel := testAllocate(t, "input.html")
+			ctx, cancel := LocalAllocate(t, "input.html")
 			defer cancel()
 
 			var nodes []*cdp.Node
@@ -192,7 +192,7 @@ func TestKeyEvent(t *testing.T) {
 		t.Run(fmt.Sprintf("%02d", i), func(t *testing.T) {
 			t.Parallel()
 
-			ctx, cancel := testAllocate(t, "input.html")
+			ctx, cancel := LocalAllocate(t, "input.html")
 			defer cancel()
 
 			var nodes []*cdp.Node
@@ -243,7 +243,7 @@ func TestKeyEventNode(t *testing.T) {
 		t.Run(fmt.Sprintf("%02d", i), func(t *testing.T) {
 			t.Parallel()
 
-			ctx, cancel := testAllocate(t, "input.html")
+			ctx, cancel := LocalAllocate(t, "input.html")
 			defer cancel()
 
 			var nodes []*cdp.Node

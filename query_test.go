@@ -17,13 +17,13 @@ import (
 	"github.com/chromedp/cdproto/cdp"
 	"github.com/chromedp/cdproto/css"
 	"github.com/chromedp/cdproto/dom"
-	"github.com/chromedp/chromedp/kb"
+	"github.com/fino-digital/chromedp/kb"
 )
 
 func TestWaitReady(t *testing.T) {
 	t.Parallel()
 
-	ctx, cancel := testAllocate(t, "js.html")
+	ctx, cancel := LocalAllocate(t, "js.html")
 	defer cancel()
 
 	var nodeIDs []cdp.NodeID
@@ -45,7 +45,7 @@ func TestWaitReady(t *testing.T) {
 func TestWaitVisible(t *testing.T) {
 	t.Parallel()
 
-	ctx, cancel := testAllocate(t, "js.html")
+	ctx, cancel := LocalAllocate(t, "js.html")
 	defer cancel()
 
 	var nodeIDs []cdp.NodeID
@@ -67,7 +67,7 @@ func TestWaitVisible(t *testing.T) {
 func TestWaitNotVisible(t *testing.T) {
 	t.Parallel()
 
-	ctx, cancel := testAllocate(t, "js.html")
+	ctx, cancel := LocalAllocate(t, "js.html")
 	defer cancel()
 
 	var nodeIDs []cdp.NodeID
@@ -90,7 +90,7 @@ func TestWaitNotVisible(t *testing.T) {
 func TestWaitEnabled(t *testing.T) {
 	t.Parallel()
 
-	ctx, cancel := testAllocate(t, "js.html")
+	ctx, cancel := LocalAllocate(t, "js.html")
 	defer cancel()
 
 	var attr string
@@ -127,7 +127,7 @@ func TestWaitEnabled(t *testing.T) {
 func TestWaitSelected(t *testing.T) {
 	t.Parallel()
 
-	ctx, cancel := testAllocate(t, "js.html")
+	ctx, cancel := LocalAllocate(t, "js.html")
 	defer cancel()
 
 	if err := Run(ctx,
@@ -161,7 +161,7 @@ func TestWaitSelected(t *testing.T) {
 func TestWaitNotPresent(t *testing.T) {
 	t.Parallel()
 
-	ctx, cancel := testAllocate(t, "js.html")
+	ctx, cancel := LocalAllocate(t, "js.html")
 	defer cancel()
 
 	if err := Run(ctx,
@@ -176,7 +176,7 @@ func TestWaitNotPresent(t *testing.T) {
 func TestAtLeast(t *testing.T) {
 	t.Parallel()
 
-	ctx, cancel := testAllocate(t, "js.html")
+	ctx, cancel := LocalAllocate(t, "js.html")
 	defer cancel()
 
 	var nodes []*cdp.Node
@@ -191,7 +191,7 @@ func TestAtLeast(t *testing.T) {
 func TestByJSPath(t *testing.T) {
 	t.Parallel()
 
-	ctx, cancel := testAllocate(t, "image2.html")
+	ctx, cancel := LocalAllocate(t, "image2.html")
 	defer cancel()
 
 	// check nodes == 1
@@ -215,7 +215,7 @@ func TestByJSPath(t *testing.T) {
 func TestNodes(t *testing.T) {
 	t.Parallel()
 
-	ctx, cancel := testAllocate(t, "table.html")
+	ctx, cancel := LocalAllocate(t, "table.html")
 	defer cancel()
 
 	tests := []struct {
@@ -245,7 +245,7 @@ func TestNodes(t *testing.T) {
 func TestNodeIDs(t *testing.T) {
 	t.Parallel()
 
-	ctx, cancel := testAllocate(t, "table.html")
+	ctx, cancel := LocalAllocate(t, "table.html")
 	defer cancel()
 
 	tests := []struct {
@@ -275,7 +275,7 @@ func TestNodeIDs(t *testing.T) {
 func TestFocusBlur(t *testing.T) {
 	t.Parallel()
 
-	ctx, cancel := testAllocate(t, "js.html")
+	ctx, cancel := LocalAllocate(t, "js.html")
 	defer cancel()
 
 	tests := []struct {
@@ -321,7 +321,7 @@ func TestFocusBlur(t *testing.T) {
 func TestDimensions(t *testing.T) {
 	t.Parallel()
 
-	ctx, cancel := testAllocate(t, "image.html")
+	ctx, cancel := LocalAllocate(t, "image.html")
 	defer cancel()
 
 	tests := []struct {
@@ -352,7 +352,7 @@ func TestDimensions(t *testing.T) {
 func TestText(t *testing.T) {
 	t.Parallel()
 
-	ctx, cancel := testAllocate(t, "form.html")
+	ctx, cancel := LocalAllocate(t, "form.html")
 	defer cancel()
 
 	tests := []struct {
@@ -384,7 +384,7 @@ func TestText(t *testing.T) {
 func TestTextContent(t *testing.T) {
 	t.Parallel()
 
-	ctx, cancel := testAllocate(t, "form.html")
+	ctx, cancel := LocalAllocate(t, "form.html")
 	defer cancel()
 
 	tests := []struct {
@@ -438,7 +438,7 @@ func TestClear(t *testing.T) {
 		t.Run(fmt.Sprintf("%02d", i), func(t *testing.T) {
 			t.Parallel()
 
-			ctx, cancel := testAllocate(t, "form.html")
+			ctx, cancel := LocalAllocate(t, "form.html")
 			defer cancel()
 
 			var val string
@@ -482,7 +482,7 @@ func TestReset(t *testing.T) {
 		t.Run(fmt.Sprintf("%02d", i), func(t *testing.T) {
 			t.Parallel()
 
-			ctx, cancel := testAllocate(t, "form.html")
+			ctx, cancel := LocalAllocate(t, "form.html")
 			defer cancel()
 
 			var value string
@@ -504,7 +504,7 @@ func TestReset(t *testing.T) {
 func TestValue(t *testing.T) {
 	t.Parallel()
 
-	ctx, cancel := testAllocate(t, "form.html")
+	ctx, cancel := LocalAllocate(t, "form.html")
 	defer cancel()
 
 	tests := []struct {
@@ -533,7 +533,7 @@ func TestValue(t *testing.T) {
 func TestValueUndefined(t *testing.T) {
 	t.Parallel()
 
-	ctx, cancel := testAllocate(t, "form.html")
+	ctx, cancel := LocalAllocate(t, "form.html")
 	defer cancel()
 
 	var value string
@@ -564,7 +564,7 @@ func TestSetValue(t *testing.T) {
 		t.Run(fmt.Sprintf("%02d", i), func(t *testing.T) {
 			t.Parallel()
 
-			ctx, cancel := testAllocate(t, "form.html")
+			ctx, cancel := LocalAllocate(t, "form.html")
 			defer cancel()
 
 			var value string
@@ -585,7 +585,7 @@ func TestSetValue(t *testing.T) {
 func TestAttributes(t *testing.T) {
 	t.Parallel()
 
-	ctx, cancel := testAllocate(t, "image.html")
+	ctx, cancel := LocalAllocate(t, "image.html")
 	defer cancel()
 
 	tests := []struct {
@@ -650,7 +650,7 @@ func TestAttributes(t *testing.T) {
 func TestAttributesAll(t *testing.T) {
 	t.Parallel()
 
-	ctx, cancel := testAllocate(t, "image.html")
+	ctx, cancel := LocalAllocate(t, "image.html")
 	defer cancel()
 
 	tests := []struct {
@@ -756,7 +756,7 @@ func TestSetAttributes(t *testing.T) {
 		t.Run(fmt.Sprintf("%02d", i), func(t *testing.T) {
 			t.Parallel()
 
-			ctx, cancel := testAllocate(t, "image.html")
+			ctx, cancel := LocalAllocate(t, "image.html")
 			defer cancel()
 
 			if err := Run(ctx, SetAttributes(test.sel, test.attrs, test.by)); err != nil {
@@ -781,7 +781,7 @@ func TestSetAttributes(t *testing.T) {
 func TestAttributeValue(t *testing.T) {
 	t.Parallel()
 
-	ctx, cancel := testAllocate(t, "image.html")
+	ctx, cancel := LocalAllocate(t, "image.html")
 	defer cancel()
 
 	tests := []struct {
@@ -833,7 +833,7 @@ func TestSetAttributeValue(t *testing.T) {
 		t.Run(fmt.Sprintf("%02d", i), func(t *testing.T) {
 			t.Parallel()
 
-			ctx, cancel := testAllocate(t, "form.html")
+			ctx, cancel := LocalAllocate(t, "form.html")
 			defer cancel()
 
 			if err := Run(ctx, SetAttributeValue(test.sel, test.attr, test.exp, test.by)); err != nil {
@@ -878,7 +878,7 @@ func TestRemoveAttribute(t *testing.T) {
 		t.Run(fmt.Sprintf("%02d", i), func(t *testing.T) {
 			t.Parallel()
 
-			ctx, cancel := testAllocate(t, "image.html")
+			ctx, cancel := LocalAllocate(t, "image.html")
 			defer cancel()
 
 			if err := Run(ctx, RemoveAttribute(test.sel, test.attr, test.by)); err != nil {
@@ -919,7 +919,7 @@ func TestClick(t *testing.T) {
 		t.Run(fmt.Sprintf("%02d", i), func(t *testing.T) {
 			t.Parallel()
 
-			ctx, cancel := testAllocate(t, "form.html")
+			ctx, cancel := LocalAllocate(t, "form.html")
 			defer cancel()
 
 			var title string
@@ -957,7 +957,7 @@ func TestDoubleClick(t *testing.T) {
 		t.Run(fmt.Sprintf("%02d", i), func(t *testing.T) {
 			t.Parallel()
 
-			ctx, cancel := testAllocate(t, "js.html")
+			ctx, cancel := LocalAllocate(t, "js.html")
 			defer cancel()
 
 			var value string
@@ -1002,7 +1002,7 @@ func TestSendKeys(t *testing.T) {
 
 			t.Parallel()
 
-			ctx, cancel := testAllocate(t, "visible.html")
+			ctx, cancel := LocalAllocate(t, "visible.html")
 			defer cancel()
 
 			var val string
@@ -1023,7 +1023,7 @@ func TestSendKeys(t *testing.T) {
 func TestScreenshot(t *testing.T) {
 	t.Parallel()
 
-	ctx, cancel := testAllocate(t, "image2.html")
+	ctx, cancel := LocalAllocate(t, "image2.html")
 	defer cancel()
 
 	tests := []struct {
@@ -1066,7 +1066,7 @@ func TestScreenshot(t *testing.T) {
 func TestScreenshotHighDPI(t *testing.T) {
 	t.Parallel()
 
-	ctx, cancel := testAllocate(t, "image.html")
+	ctx, cancel := LocalAllocate(t, "image.html")
 	defer cancel()
 
 	// Use a weird screen dimension with a 1.5 scale factor, so that
@@ -1127,7 +1127,7 @@ func TestSubmit(t *testing.T) {
 		t.Run(fmt.Sprintf("%02d", i), func(t *testing.T) {
 			t.Parallel()
 
-			ctx, cancel := testAllocate(t, "form.html")
+			ctx, cancel := LocalAllocate(t, "form.html")
 			defer cancel()
 
 			var title string
@@ -1165,7 +1165,7 @@ func TestComputedStyle(t *testing.T) {
 		t.Run(fmt.Sprintf("%02d", i), func(t *testing.T) {
 			t.Parallel()
 
-			ctx, cancel := testAllocate(t, "js.html")
+			ctx, cancel := LocalAllocate(t, "js.html")
 			defer cancel()
 
 			var styles []*css.ComputedProperty
@@ -1217,7 +1217,7 @@ func TestMatchedStyle(t *testing.T) {
 		t.Run(fmt.Sprintf("%02d", i), func(t *testing.T) {
 			t.Parallel()
 
-			ctx, cancel := testAllocate(t, "js.html")
+			ctx, cancel := LocalAllocate(t, "js.html")
 			defer cancel()
 
 			var styles *css.GetMatchedStylesForNodeReturns
@@ -1285,7 +1285,7 @@ func TestFileUpload(t *testing.T) {
 	// defers above.
 	for i, test := range tests {
 		t.Run(fmt.Sprintf("%02d", i), func(t *testing.T) {
-			ctx, cancel := testAllocate(t, "")
+			ctx, cancel := LocalAllocate(t, "")
 			defer cancel()
 
 			var result string
@@ -1308,7 +1308,7 @@ func TestFileUpload(t *testing.T) {
 func TestInnerHTML(t *testing.T) {
 	t.Parallel()
 
-	ctx, cancel := testAllocate(t, "table.html")
+	ctx, cancel := LocalAllocate(t, "table.html")
 	defer cancel()
 
 	tests := []struct {
@@ -1335,7 +1335,7 @@ func TestInnerHTML(t *testing.T) {
 func TestOuterHTML(t *testing.T) {
 	t.Parallel()
 
-	ctx, cancel := testAllocate(t, "table.html")
+	ctx, cancel := LocalAllocate(t, "table.html")
 	defer cancel()
 
 	tests := []struct {
@@ -1362,7 +1362,7 @@ func TestOuterHTML(t *testing.T) {
 func TestScrollIntoView(t *testing.T) {
 	t.Parallel()
 
-	ctx, cancel := testAllocate(t, "image.html")
+	ctx, cancel := LocalAllocate(t, "image.html")
 	defer cancel()
 
 	tests := []struct {
@@ -1403,7 +1403,7 @@ func TestSVGFullXPath(t *testing.T) {
 		t.Run(fmt.Sprintf("%02d", i), func(t *testing.T) {
 			t.Parallel()
 
-			ctx, cancel := testAllocate(t, "svg.html")
+			ctx, cancel := LocalAllocate(t, "svg.html")
 			defer cancel()
 
 			var nodes []*cdp.Node
@@ -1460,7 +1460,7 @@ const (
 func TestWaitReadyReuseAction(t *testing.T) {
 	t.Parallel()
 
-	ctx, cancel := testAllocate(t, "js.html")
+	ctx, cancel := LocalAllocate(t, "js.html")
 	defer cancel()
 
 	// Reusing a single WaitReady action used to panic.

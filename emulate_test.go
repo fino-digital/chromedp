@@ -5,13 +5,13 @@ import (
 	"image/png"
 	"testing"
 
-	"github.com/chromedp/chromedp/device"
+	"github.com/fino-digital/chromedp/device"
 )
 
 func TestEmulate(t *testing.T) {
 	t.Parallel()
 
-	ctx, cancel := testAllocate(t, "image.html")
+	ctx, cancel := LocalAllocate(t, "image.html")
 	defer cancel()
 
 	var buf []byte

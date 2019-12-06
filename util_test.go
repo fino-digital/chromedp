@@ -137,7 +137,7 @@ func TestNodeOp(t *testing.T) {
 	}))
 	defer s.Close()
 
-	ctx, cancel := testAllocate(t, "")
+	ctx, cancel := LocalAllocate(t, "")
 	defer cancel()
 
 	// get document root

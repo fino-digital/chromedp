@@ -19,7 +19,7 @@ import (
 func TestNavigate(t *testing.T) {
 	t.Parallel()
 
-	ctx, cancel := testAllocate(t, "image.html")
+	ctx, cancel := LocalAllocate(t, "image.html")
 	defer cancel()
 
 	var urlstr, title string
@@ -41,7 +41,7 @@ func TestNavigate(t *testing.T) {
 func TestNavigationEntries(t *testing.T) {
 	t.Parallel()
 
-	ctx, cancel := testAllocate(t, "")
+	ctx, cancel := LocalAllocate(t, "")
 	defer cancel()
 
 	tests := []struct {
@@ -87,7 +87,7 @@ func TestNavigationEntries(t *testing.T) {
 func TestNavigateToHistoryEntry(t *testing.T) {
 	t.Parallel()
 
-	ctx, cancel := testAllocate(t, "image.html")
+	ctx, cancel := LocalAllocate(t, "image.html")
 	defer cancel()
 
 	var entries []*page.NavigationEntry
@@ -114,7 +114,7 @@ func TestNavigateToHistoryEntry(t *testing.T) {
 func TestNavigateBack(t *testing.T) {
 	t.Parallel()
 
-	ctx, cancel := testAllocate(t, "form.html")
+	ctx, cancel := LocalAllocate(t, "form.html")
 	defer cancel()
 
 	var title, exptitle string
@@ -137,7 +137,7 @@ func TestNavigateBack(t *testing.T) {
 func TestNavigateForward(t *testing.T) {
 	t.Parallel()
 
-	ctx, cancel := testAllocate(t, "form.html")
+	ctx, cancel := LocalAllocate(t, "form.html")
 	defer cancel()
 
 	var title, exptitle string
@@ -161,7 +161,7 @@ func TestNavigateForward(t *testing.T) {
 func TestStop(t *testing.T) {
 	t.Parallel()
 
-	ctx, cancel := testAllocate(t, "form.html")
+	ctx, cancel := LocalAllocate(t, "form.html")
 	defer cancel()
 	if err := Run(ctx, Stop()); err != nil {
 		t.Fatal(err)
@@ -185,7 +185,7 @@ func TestReload(t *testing.T) {
 	s := httptest.NewServer(mux)
 	defer s.Close()
 
-	ctx, cancel := testAllocate(t, "")
+	ctx, cancel := LocalAllocate(t, "")
 	defer cancel()
 
 	var firstTitle, secondTitle string
@@ -208,7 +208,7 @@ func TestReload(t *testing.T) {
 func TestCaptureScreenshot(t *testing.T) {
 	t.Parallel()
 
-	ctx, cancel := testAllocate(t, "image.html")
+	ctx, cancel := LocalAllocate(t, "image.html")
 	defer cancel()
 
 	const width, height = 650, 450
@@ -238,7 +238,7 @@ func TestCaptureScreenshot(t *testing.T) {
 func TestLocation(t *testing.T) {
 	t.Parallel()
 
-	ctx, cancel := testAllocate(t, "form.html")
+	ctx, cancel := LocalAllocate(t, "form.html")
 	defer cancel()
 
 	var urlstr string
@@ -254,7 +254,7 @@ func TestLocation(t *testing.T) {
 func TestTitle(t *testing.T) {
 	t.Parallel()
 
-	ctx, cancel := testAllocate(t, "image.html")
+	ctx, cancel := LocalAllocate(t, "image.html")
 	defer cancel()
 
 	var title string
@@ -271,7 +271,7 @@ func TestTitle(t *testing.T) {
 func TestLoadIframe(t *testing.T) {
 	t.Parallel()
 
-	ctx, cancel := testAllocate(t, "iframe.html")
+	ctx, cancel := LocalAllocate(t, "iframe.html")
 	defer cancel()
 
 	if err := Run(ctx,
@@ -288,7 +288,7 @@ func TestLoadIframe(t *testing.T) {
 func TestNavigateContextTimeout(t *testing.T) {
 	t.Parallel()
 
-	ctx, cancel := testAllocate(t, "")
+	ctx, cancel := LocalAllocate(t, "")
 	defer cancel()
 
 	// Serve the page, but cancel the context almost immediately after.
@@ -317,7 +317,7 @@ func writeHTML(content string) http.Handler {
 func TestClickNavigate(t *testing.T) {
 	t.Parallel()
 
-	ctx, cancel := testAllocate(t, "")
+	ctx, cancel := LocalAllocate(t, "")
 	defer cancel()
 
 	mux := http.NewServeMux()
@@ -365,7 +365,7 @@ func TestClickNavigate(t *testing.T) {
 func TestNavigateWithoutWaitingForLoad(t *testing.T) {
 	t.Parallel()
 
-	ctx, cancel := testAllocate(t, "")
+	ctx, cancel := LocalAllocate(t, "")
 	defer cancel()
 
 	if err := Run(ctx,

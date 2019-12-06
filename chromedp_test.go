@@ -92,7 +92,7 @@ func TestMain(m *testing.M) {
 
 var allocateOnce sync.Once
 
-func testAllocate(tb testing.TB, name string) (context.Context, context.CancelFunc) {
+func LocalAllocate(tb testing.TB, name string) (context.Context, context.CancelFunc) {
 	// Start the browser exactly once, as needed.
 	allocateOnce.Do(func() { browserCtx, _ = testAllocateSeparate(tb) })
 
@@ -234,7 +234,7 @@ func TestTargets(t *testing.T) {
 func TestCancelError(t *testing.T) {
 	t.Parallel()
 
-	ctx1, cancel1 := testAllocate(t, "")
+	ctx1, cancel1 := LocalAllocate(t, "")
 	defer cancel1()
 	if err := Run(ctx1); err != nil {
 		t.Fatal(err)
@@ -278,7 +278,7 @@ func TestPrematureCancel(t *testing.T) {
 func TestPrematureCancelTab(t *testing.T) {
 	t.Parallel()
 
-	ctx1, cancel := testAllocate(t, "")
+	ctx1, cancel := LocalAllocate(t, "")
 	defer cancel()
 	if err := Run(ctx1); err != nil {
 		t.Fatal(err)
@@ -328,7 +328,7 @@ func TestConcurrentCancel(t *testing.T) {
 func TestListenBrowser(t *testing.T) {
 	t.Parallel()
 
-	ctx, cancel := testAllocate(t, "")
+	ctx, cancel := LocalAllocate(t, "")
 	defer cancel()
 
 	// Check that many ListenBrowser callbacks work, including adding
@@ -365,7 +365,7 @@ func TestListenBrowser(t *testing.T) {
 func TestListenTarget(t *testing.T) {
 	t.Parallel()
 
-	ctx, cancel := testAllocate(t, "")
+	ctx, cancel := LocalAllocate(t, "")
 	defer cancel()
 
 	// Check that many listen callbacks work, including adding callbacks
@@ -400,7 +400,7 @@ func TestListenTarget(t *testing.T) {
 func TestLargeEventCount(t *testing.T) {
 	t.Parallel()
 
-	ctx, cancel := testAllocate(t, "")
+	ctx, cancel := LocalAllocate(t, "")
 	defer cancel()
 
 	// Simulate an environment where Chrome sends 2000 console log events,
@@ -427,7 +427,7 @@ func TestLargeEventCount(t *testing.T) {
 func TestLargeQuery(t *testing.T) {
 	t.Parallel()
 
-	ctx, cancel := testAllocate(t, "")
+	ctx, cancel := LocalAllocate(t, "")
 	defer cancel()
 
 	s := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -570,7 +570,7 @@ func TestLogOptions(t *testing.T) {
 func TestLargeOutboundMessages(t *testing.T) {
 	t.Parallel()
 
-	ctx, cancel := testAllocate(t, "")
+	ctx, cancel := LocalAllocate(t, "")
 	defer cancel()
 
 	// ~50KiB of JS should fit just fine in our current buffer of 1MiB.
@@ -584,7 +584,7 @@ func TestLargeOutboundMessages(t *testing.T) {
 func TestDirectCloseTarget(t *testing.T) {
 	t.Parallel()
 
-	ctx, cancel := testAllocate(t, "")
+	ctx, cancel := LocalAllocate(t, "")
 	defer cancel()
 
 	c := FromContext(ctx)
@@ -609,7 +609,7 @@ func TestDirectCloseTarget(t *testing.T) {
 func TestDirectCloseBrowser(t *testing.T) {
 	t.Parallel()
 
-	ctx, cancel := testAllocate(t, "")
+	ctx, cancel := LocalAllocate(t, "")
 	defer cancel()
 
 	c := FromContext(ctx)
@@ -628,7 +628,7 @@ func TestDirectCloseBrowser(t *testing.T) {
 func TestDownloadIntoDir(t *testing.T) {
 	t.Parallel()
 
-	ctx, cancel := testAllocate(t, "")
+	ctx, cancel := LocalAllocate(t, "")
 	defer cancel()
 
 	dir, err := ioutil.TempDir("", "chromedp-test")

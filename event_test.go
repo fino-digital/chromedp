@@ -116,7 +116,7 @@ func TestCloseDialog(t *testing.T) {
 		t.Run(test.name, func(t *testing.T) {
 			t.Parallel()
 
-			ctx, cancel := testAllocate(t, "")
+			ctx, cancel := LocalAllocate(t, "")
 			defer cancel()
 
 			ListenTarget(ctx, func(ev interface{}) {
@@ -161,7 +161,7 @@ func TestCloseDialog(t *testing.T) {
 func TestWaitNewTarget(t *testing.T) {
 	t.Parallel()
 
-	ctx, cancel := testAllocate(t, "newtab.html")
+	ctx, cancel := LocalAllocate(t, "newtab.html")
 	defer cancel()
 
 	ch := WaitNewTarget(ctx, func(info *target.Info) bool {
